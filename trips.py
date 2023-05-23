@@ -146,3 +146,18 @@ TRIPS = {
         }
     ]
 }
+
+def find(title):
+    global TRIPS
+    for trips in TRIPS.values():
+        for trip in trips:
+            if trip.get("title") == title:
+                return trip
+    return False
+
+def info(trip):
+    return f"""
+<b>📍{trip.get("title")}</b>
+📏 Дистанция: {trip.get("distance")}
+
+    """
