@@ -156,8 +156,16 @@ def find(title):
     return False
 
 def info(trip):
+    if isinstance(trip.get("duration"), tuple):
+        duration = f"от {trip.get('duration')[0]} до {trip.get('duration')[1]} дней"
+    else:
+        duration = f"{trip.get('duration')} д."
     return f"""
-<b>📍{trip.get("title")}</b>
-📏 Дистанция: {trip.get("distance")}
-
+<b>{trip.get("title").upper()}</b>
+📏 Дистанция: {trip.get("distance")} км.
+🤯 Сложность: {["Легкая", "Средняя", "Сложная"][trip.get("difficulty") - 1]}
+📆 Продолжительность: {duration}
+👨‍👨‍👧‍👧 Размер группы: {f'от {trip.get("group")[0]} до {trip.get("group")[1]} чел.' if trip.get("group") else 'не ограничено'}
+🌈 Описание: 
+<i>{trip.get("description")}</i>
     """
