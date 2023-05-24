@@ -58,7 +58,9 @@ def callback_trip(call : types.CallbackQuery):
     title = call.data.split(":")[1]
     trip = find(title)
     bot.edit_message_text(title, call.message.chat.id, call.message.message_id, parse_mode="html")
-    bot.send_media_group(call.message.chat.id, [open(f"images/{category(trip)}/{index(trip) + 1}/{i}.jpg", "rb") for i in range(1, 3)])
+    for i in range(1, 3):
+        with open(f"images/{category(trip)}/{index(trip) + 1}/{i}.jpg", "rb") as file:
+            bot.send_photo(call.message.chat.id, file)
     bot.send_message(call.message.chat.id, info(trip), parse_mode="html")
 
 bot.infinity_polling()
