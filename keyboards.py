@@ -12,3 +12,8 @@ def trip_keyboard(*trips):
     for trip in trips:
         keyboard.add(InlineKeyboardButton(text=trip.get("title"), callback_data=f'trip:{trip.get("title")}'))
     return keyboard
+
+def confirm_keyboard(trip):
+    keyboard = InlineKeyboardMarkup()
+    keyboard.add(InlineKeyboardButton(text="✅ Записаться", callback_data=f'confirm:{trip.get("title")}'))
+    return keyboard
