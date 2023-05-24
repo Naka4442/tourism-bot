@@ -155,6 +155,16 @@ def find(title):
                 return trip
     return False
 
+def category(trip):
+    global TRIPS
+    for cat, trips in TRIPS.items():
+        if trip in trips:
+            return cat
+        
+def index(trip):
+    global TRIPS
+    return TRIPS[category(trip)].index(trip)
+
 def info(trip):
     if isinstance(trip.get("duration"), tuple):
         duration = f"от {trip.get('duration')[0]} до {trip.get('duration')[1]} дней"

@@ -1,7 +1,8 @@
 from telebot import TeleBot, types
 from config import TOKEN
 from keyboards import keyboard, trip_keyboard
-from trips import TRIPS, find, info
+from trips import TRIPS, find, info, category, index
+import os
 
 
 COMMANDS = [
@@ -56,7 +57,8 @@ def any(message : types.Message):
 def callback_trip(call : types.CallbackQuery):
     title = call.data.split(":")[1]
     trip = find(title)
-    bot.edit_message_text(info(trip), call.message.chat.id, call.message.message_id, parse_mode="html")
-
+    bot.edit_message_text(title, call.message.chat.id, call.message.message_id, parse_mode="html")
+    bot.send_media_group(call.message.chat.id, [open(f"images/{category(trip)}/{index(trip) + 1}/{i}.jpg", "rb") for i in range(1, 3)])
+    bot.send_message(call.message.chat.id, info(trip), parse_mode="html")
 
 bot.infinity_polling()
